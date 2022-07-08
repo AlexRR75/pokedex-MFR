@@ -1,261 +1,218 @@
 const pokemons = [
     {
-        thumbnail: 'img/001.png',
+        thumbnail: 'images/001.png',
         id:'N°01' ,
         name: 'bulbasaur',
         type: ['plant', 'poison']
     },
     {
-        thumbnail: 'img/002.png',
+        thumbnail: 'images/002.png',
         id:'N°02',
         name: 'charmander',
-        type: 'fire'
+        type: ['fire']
     },
     {
-        thumbnail: 'img/003.png',
+        thumbnail: 'images/003.png',
         id:'N°03',
         name: 'caterpie',
-        type: 'bug'
+        type: ['bug']
     },
     {
-        thumbnail: 'img/004.png',
+        thumbnail: 'images/004.png',
         id:'N°04',
         name: 'kaluna',
         type: ['bug', 'poison']
     },
     {
-        thumbnail: 'img/005.png',
+        thumbnail: 'images/005.png',
         id:'N°05',
         name: 'ratata',
-        type: 'ratata'
+        type: ['ratata']
     },
     {
-        thumbnail: 'img/006.png',
+        thumbnail: 'images/006.png',
         id:'N°06',
         name: 'pikachu',
-        type: 'pikachu'
+        type: ['pikachu']
     },
     {
-        thumbnail: 'img/007.png',
+        thumbnail: 'images/007.png',
         id:'N°07',
         name: 'vulpix',
         type: ['fire', 'plant']
     },
     {
-        thumbnail: 'img/008.png',
+        thumbnail: 'images/008.png',
         id:'N°08',
         name: 'jigglypuff',
         type: ['normal', 'fairy']
     },
     {
-        thumbnail: 'img/009.png',
+        thumbnail: 'images/009.png',
         id:'N°09',
         name: 'ice',
-        type: 'fairy'
+        type: ['fairy']
     },
     {
-        thumbnail: 'img/010.png',
+        thumbnail: 'images/010.png',
         id:'N°10',
         name: 'ground',
-        type: 'electrical'
+        type: ['electrical']
     },
     {
-        thumbnail: 'img/011.png',
+        thumbnail: 'images/011.png',
         id:'N°11',
         name: 'ghost',
-        type: 'position'
+        type: ['position']
     },
     {
-        thumbnail: 'img/012.png',
+        thumbnail: 'images/012.png',
         id:'N°12',
         name: 'deer',
-        type: 'faire'
+        type: ['faire']
     },
     {
-        thumbnail: 'img/013.png',
+        thumbnail: 'images/013.png',
         id:'N°13',
         name: 'dark',
-        type: 'fairy'
+        type: ['fairy']
     },
     {
-        thumbnail: 'img/014.png',
+        thumbnail: 'images/014.png',
         id:'N°14',
         name: 'stell',
         type: ['normal', 'electrical']
     },
     {
-        thumbnail: 'img/015.png',
+        thumbnail: 'images/015.png',
         id:'N°15',
         name: 'cat',
-        type: 'fire'
+        type: ['fire']
     },
     {
-        thumbnail: 'img/016.png',
+        thumbnail: 'images/016.png',
         id:'N°16',
         name: 'rock',
         type: ['fairy', 'Poison']
     },
-]; 
+];
+
+const pokemonTypes =[];
 
 
+const cardsContainer = document.getElementById("cardsContainer");
 
-/* <div class="card">
-            <figure class="cardImage">
-                <img src="images/001.png" alt="pokémon1">
-            </figure>
-            <div class="cardInfo">
-                <h3 class="number">Nro.01</h3>
-                <h1 class="name">Bulbasour</h1>
-                <div class="powers">
-                    <p class="type1">Plant</p>
-                    <p class="type2">Poison</p>
-                </div>
-            </div>    
-        </div> */
+for(let index = 0; index < pokemons.length; index++){
+// este es el contenedor de cada card
+    const eachCard = document.createElement("div");
+    eachCard.className = "each_card";
+    cardsContainer.appendChild(eachCard);
 
-
-// const cardsContainer =document.querySelector('.cardsContainer');
-
-// for (var i = 0; i<pokemons.length; i++) {
-//     const card =document.createElement ('div');
-//     const cardInfo =document.createElement ('div');
-//     const pokemonName =document.createElement ('h1');
-//     pokemonName.innerHTML = pokemons[i].name;
-//     card.appendChild(cardInfo);
-//     cardInfo.appendChild(pokemonName);
+    // creación del contenedor de cada imagen
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "each_image";
+    eachCard.appendChild(imageContainer);
     
-//     cardsContainer.appendChild(card);
-// }
+    // creación de la etiqueta de cada imagen
+    const pokemonImage = document.createElement("img");
+    pokemonImage.className = "pokemon_image";
+    imageContainer.appendChild(pokemonImage);
+    pokemonImage.src = pokemons[index].thumbnail;
+
+    const pokemonInfo = document.createElement("div");
+    pokemonInfo.className = "card_info";
+    eachCard.appendChild(imageContainer);
+
+    const pokemonNumber = document.createElement("h3");
+    pokemonNumber.className = "pokemon_number";
+    eachCard.appendChild(pokemonNumber);
+    pokemonNumber.innerHTML = pokemons[index].id;
+
+    const pokemonName = document.createElement("h1");
+    pokemonName.className = "pokemon_name";
+    eachCard.appendChild(pokemonName);
+    pokemonName.innerHTML = pokemons[index].name;
+
+    const type = pokemons[index].type
+    
+    for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
+        const pokemonType = document.createElement("h3");
+        pokemonType.className = "pokemon_type";
+        eachCard.appendChild(pokemonType);
+        pokemonType.innerHTML = type[typeIndex];         
+
+        // Ahora vamos a rellenar los tipos de pokémons
+
+        pokemonTypes.push(type[typeIndex]);
+    }    
+
+}
+
+const uniqueTypes = pokemonTypes.filter((type, index, types) => {
+    return types.indexOf(type)==index
+})
+
+const typeSelect = document.querySelector("#filterType");
+for(let index = 0; index < uniqueTypes.length; index++){
+    const typeOption = document.createElement("option");
+    typeOption.value= uniqueTypes[index];
+    typeOption.innerHTML= uniqueTypes[index];
+    typeSelect.appendChild(typeOption);
+
+}
+
+typeSelect.addEventListener("change", (event) => {
+const typeSelecter = event.target.value
+const filtered = pokemons.filter(pokemon => pokemon.type.includes(typeSelecter) )
+console.log(filtered);
+
+const cardsContainer = document.getElementById("cardsContainer");
+cardsContainer.innerHTML="";
 
 
-let myObject = {
-    marca: 'Mazda',
-    modelo: 'CX5',
-    color: 'Rojo',
-    carDetails: function(){
-        console.log('Auto ${this.marca} ${this.modelo} ${this.color}')
+for(let index = 0; index < filtered.length; index++){
+    // este es el contenedor de cada card
+        const eachCard = document.createElement("div");
+        eachCard.className = "each_card";
+        cardsContainer.appendChild(eachCard);
+    
+        // creación del contenedor de cada imagen
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "each_image";
+        eachCard.appendChild(imageContainer);
+        
+        // creación de la etiqueta de cada imagen
+        const pokemonImage = document.createElement("img");
+        pokemonImage.className = "pokemon_image";
+        imageContainer.appendChild(pokemonImage);
+        pokemonImage.src = filtered[index].thumbnail;
+    
+        const pokemonInfo = document.createElement("div");
+        pokemonInfo.className = "card_info";
+        eachCard.appendChild(imageContainer);
+    
+        const pokemonNumber = document.createElement("h3");
+        pokemonNumber.className = "pokemon_number";
+        eachCard.appendChild(pokemonNumber);
+        pokemonNumber.innerHTML = filtered[index].id;
+    
+        const pokemonName = document.createElement("h1");
+        pokemonName.className = "pokemon_name";
+        eachCard.appendChild(pokemonName);
+        pokemonName.innerHTML = filtered[index].name;
+    
+        const type = filtered[index].type
+        
+        for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
+            const pokemonType = document.createElement("h3");
+            pokemonType.className = "pokemon_type";
+            eachCard.appendChild(pokemonType);
+            pokemonType.innerHTML = type[typeIndex];
+        }    
+    
     }
-};
-
-// const foodList = ['Pizza', 'Ramen', 'Paella'];
-// const nationalities = ['Italian', 'Japanese', 'Spanish'];
-// const phrases1 = nationalities.map(item => {
-//    return "Since I'm " + item
-// });
-// const phrases2 = foodList.map(item => {
-//     return " I love eating " + item
-//  });
-
-//  console.log(phrases1 + phrases2);
-
-//  const nationalitiesFoodList = [
-//     let info1:{
-//          country:'Italian',
-//          food: 'Pizza'
-//         },
-//     let info2:{
-//         country:'Japanese',
-//         food: 'Ramen'
-//         },
-//     let info3:{
-//         country:'Spanish',
-//         food: 'Paella'
-//         }
-//     ];
-
- 
-//  const phrases1 = nationalitiesFoodList.map(item => {
-//     return "Since I'm " + info1.country + " I love eating " + info1.food
-//  });
-
-const nationalities = ['Italian', 'Japanese', 'Spanish'];
-const foodList = ['Pizza', 'Ramen', 'Paella'];
-
-
-//let prefijos = ["super", "spider", "ant", "iron"]
-//let sufijo = "man";
-
-let fraseCompleta = nationalities.map(item => nationalities + foodList);
-
-console.log(fraseCompleta);
- 
- 
-
-// 'Since I'm Italian, I love eating Pizza',
-// 'Since I'm Japanese, I love eating Ramen',
-// 'Since I'm from Valencia, I love eating Paella', 
-
-        // const nationalities = ['Italian', 'Japanese', 'Spanish'];
-        // const foodList = ['Pizza', 'Ramen', 'Paella'];
-        
-        
-        // //let prefijos = ["super", "spider", "ant", "iron"]
-        // //let sufijo = "man";
-        
-        // let fraseCompleta = nationalities.map(item => nationalities + foodList);
-        
-        // console.log(fraseCompleta);
-
-    // const nationalities = ['Italian', 'Japanese', 'Spanish'];
-    //     const foodList = ['Pizza', 'Ramen', 'Paella'];
-        
-        
-    //     //let prefijos = ["super", "spider", "ant", "iron"]
-    //     //let sufijo = "man";
-        
-    //     let fraseCompleta = nationalities.map(item => "Since " + nationalities + " i love " + foodList);
-            
-    //     console.log(fraseCompleta);
-    //     VM462:10 (3) ['Since Italian,Japanese,Spanish i love Pizza,Ramen,Paella', 'Since Italian,Japanese,Spanish i love Pizza,Ramen,Paella', 'Since Italian,Japanese,Spanish i love Pizza,Ramen,Paella']
-
-    const nationalitiesFoodList = [
-        {country:'Italian', food: 'Pizza'},
-        {country:'Japanese', food: 'Ramen'},
-        {country:'Spanish', food: 'Paella'}
-    ];
-
-    let phrases = nationalitiesFoodList.map(function(country,food){
-        return 'Since I am ' + country + ' , I love eating ' + food 
-    });
-
-    const nationalitiesFoodList = [
-        {country:'Italian', food: 'Pizza'},
-        {country:'Japanese', food: 'Ramen'},
-        {country:'Spanish', food: 'Paella'}
-    ];
-
-    let phrases = nationalitiesFoodList.map(function(country,food){
-        return 'Since I am ' + nationalitiesFoodList.country + ' , I love eating ' + nationalitiesFoodList.food 
-    });
-
-
-// const nationalities = ['Italian', 'Japanese', 'Spanish'];
-// const foodList = ['Pizza', 'Ramen', 'Paella'];
-
-// const phrases = nationalities.map((nationality, index) => {
-// console.log(nationality,index);
-// const food = foodList[index] 
-// return `Since I am ${nationality}, I love ${food}`
-// });
+})
 
 
 
 
-// function solution(array) {
-//     const array = [2, 4, 5, 6];
-//     const arrayX2 = array.map(index * 2);
-//     return arrayX2;
-// };
-
-const letters = ['a', 'b', 'c'];
-
-for (let index = 0; index < letters.length; index++) {
-    const element = letters[index];
-    
-}
-
-const names2 = ['Albert', 'Clay', 'Mike']; 
-for (index = 0; index < names2.length; index++) {
-    const element = names2[index];
-    console.log('Hello ', element)
-}
