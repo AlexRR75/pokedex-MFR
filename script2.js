@@ -100,6 +100,7 @@ const pokemons = [
 const pokemonTypes =[];
 //para crear un array con los nombres 
 const pokemonNames =[];
+console.log(pokemonNames);
 
 
 const cardsContainer = document.getElementById("cardsContainer");
@@ -202,16 +203,16 @@ for(let index = 0; index < pokemons.length; index++){
 
 }
 
-const uniqueTypes = pokemonTypes.filter((type, index, types) => {
-    return types.indexOf(type)==index
+const pokemonsName = pokemonTypes.filter((name, index, names) => {
+    return names.indexOf(name)==index
 })
 
 const typeSelect = document.querySelector("#filterType");
-for(let index = 0; index < uniqueTypes.length; index++){
-    const typeOption = document.createElement("option");
-    typeOption.value= uniqueTypes[index];
-    typeOption.innerHTML= uniqueTypes[index];
-    typeSelect.appendChild(typeOption);
+for(let index = 0; index < pokemonsName.length; index++){
+    const nameOption = document.createElement("option");
+    nameOption.value= pokemonsName[index];
+    nameOption.innerHTML= pokemonsName[index];
+    typeSelect.appendChild(nameOption);
 
 }
 
@@ -268,6 +269,66 @@ for(let index = 0; index < filtered.length; index++){
     }
 })
 
+const nameSelect = document.querySelector("#filterName");
+for(let index = 0; index < pokemonsName.length; index++){
+    const nameOption = document.createElement("option");
+    nameOption.value= pokemonsName[index];
+    nameOption.innerHTML= pokemonsName[index];
+    nameSelect.appendChild(nameOption);
 
+}
+
+nameSelect.addEventListener("change", (event) => {
+const nameSelecter = event.target.value
+const named = pokemons.filter(pokemon => pokemon.name.includes(nameSelecter) )
+console.log(named);
+
+
+const cardsContainer = document.getElementById("cardsContainer");
+cardsContainer.innerHTML="";
+
+
+for(let index = 0; index < filtered.length; index++){
+    // este es el contenedor de cada card
+        const eachCard = document.createElement("div");
+        eachCard.className = "each_card";
+        cardsContainer.appendChild(eachCard);
+    
+        // creación del contenedor de cada imagen
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "each_image";
+        eachCard.appendChild(imageContainer);
+        
+        // creación de la etiqueta de cada imagen
+        const pokemonImage = document.createElement("img");
+        pokemonImage.className = "pokemon_image";
+        imageContainer.appendChild(pokemonImage);
+        pokemonImage.src = filtered[index].thumbnail;
+    
+        const pokemonInfo = document.createElement("div");
+        pokemonInfo.className = "card_info";
+        eachCard.appendChild(imageContainer);
+    
+        const pokemonNumber = document.createElement("h3");
+        pokemonNumber.className = "pokemon_number";
+        eachCard.appendChild(pokemonNumber);
+        pokemonNumber.innerHTML = filtered[index].id;
+    
+        const pokemonName = document.createElement("h1");
+        pokemonName.className = "pokemon_name";
+        eachCard.appendChild(pokemonName);
+        pokemonName.innerHTML = filtered[index].name;
+    
+        const type = filtered[index].type
+        
+        for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
+            const pokemonType = document.createElement("h3");
+            pokemonType.className = "pokemon_type";
+            eachCard.appendChild(pokemonType);
+            pokemonType.innerHTML = type[typeIndex];
+        }    
+    
+    }
+})
 
 
