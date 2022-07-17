@@ -216,56 +216,56 @@ for(let index = 0; index < uniqueTypes.length; index++){
 }
 
 typeSelect.addEventListener("change", (event) => {
-const typeSelecter = event.target.value
-const filtered = pokemons.filter(pokemon => pokemon.type.includes(typeSelecter) )
-console.log(filtered);
+    const typeSelecter = event.target.value
+    const filtered = pokemons.filter(pokemon => pokemon.type.includes(typeSelecter) )
+    console.log(filtered);
 
 
-const cardsContainer = document.getElementById("cardsContainer");
-cardsContainer.innerHTML="";
+    const cardsContainer = document.getElementById("cardsContainer");
+    cardsContainer.innerHTML="";
 
 
-for(let index = 0; index < filtered.length; index++){
-    // este es el contenedor de cada card
-        const eachCard = document.createElement("div");
-        eachCard.className = "each_card";
-        cardsContainer.appendChild(eachCard);
-    
-        // creación del contenedor de cada imagen
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "each_image";
-        eachCard.appendChild(imageContainer);
+    for(let index = 0; index < filtered.length; index++){
+        // este es el contenedor de cada card
+            const eachCard = document.createElement("div");
+            eachCard.className = "each_card";
+            cardsContainer.appendChild(eachCard);
         
-        // creación de la etiqueta de cada imagen
-        const pokemonImage = document.createElement("img");
-        pokemonImage.className = "pokemon_image";
-        imageContainer.appendChild(pokemonImage);
-        pokemonImage.src = filtered[index].thumbnail;
-    
-        const pokemonInfo = document.createElement("div");
-        pokemonInfo.className = "card_info";
-        eachCard.appendChild(imageContainer);
-    
-        const pokemonNumber = document.createElement("h3");
-        pokemonNumber.className = "pokemon_number";
-        eachCard.appendChild(pokemonNumber);
-        pokemonNumber.innerHTML = filtered[index].id;
-    
-        const pokemonName = document.createElement("h1");
-        pokemonName.className = "pokemon_name";
-        eachCard.appendChild(pokemonName);
-        pokemonName.innerHTML = filtered[index].name;
-    
-        const type = filtered[index].type
+            // creación del contenedor de cada imagen
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "each_image";
+            eachCard.appendChild(imageContainer);
+            
+            // creación de la etiqueta de cada imagen
+            const pokemonImage = document.createElement("img");
+            pokemonImage.className = "pokemon_image";
+            imageContainer.appendChild(pokemonImage);
+            pokemonImage.src = filtered[index].thumbnail;
         
-        for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
-            const pokemonType = document.createElement("h3");
-            pokemonType.className = "pokemon_type";
-            eachCard.appendChild(pokemonType);
-            pokemonType.innerHTML = type[typeIndex];
-        }    
-    
-    }
+            const pokemonInfo = document.createElement("div");
+            pokemonInfo.className = "card_info";
+            eachCard.appendChild(imageContainer);
+        
+            const pokemonNumber = document.createElement("h3");
+            pokemonNumber.className = "pokemon_number";
+            eachCard.appendChild(pokemonNumber);
+            pokemonNumber.innerHTML = filtered[index].id;
+        
+            const pokemonName = document.createElement("h1");
+            pokemonName.className = "pokemon_name";
+            eachCard.appendChild(pokemonName);
+            pokemonName.innerHTML = filtered[index].name;
+        
+            const type = filtered[index].type
+            
+            for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
+                const pokemonType = document.createElement("h3");
+                pokemonType.className = "pokemon_type";
+                eachCard.appendChild(pokemonType);
+                pokemonType.innerHTML = type[typeIndex];
+            }    
+        
+        }
 })
 
 

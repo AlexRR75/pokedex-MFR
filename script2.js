@@ -152,22 +152,68 @@ for(let index = 0; index < pokemons.length; index++){
         // console.log(searchBar.value);
         result.innerHTML = "";
 
+        const cardsContainer = document.getElementById("cardsContainer");
+        cardsContainer.innerHTML="";
+
         const text = searchBar.value.toLowerCase();
         for(let pokemon of pokemons){
             let nameSearched = pokemon.name.toLowerCase();
             if(nameSearched.indexOf(text) !== -1){
-                result.innerHTML +=`
-                <li>${pokemon.name}</li>
-                `
+                // result.innerHTML +=`
+                // <li>${pokemon.name}</li>
+                // `
+                
+                // este es el contenedor de cada card
+                const eachCard = document.createElement("div");
+                eachCard.className = "each_card";
+                cardsContainer.appendChild(eachCard);
+            
+                // creación del contenedor de cada imagen
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "each_image";
+                eachCard.appendChild(imageContainer);
+                
+                // creación de la etiqueta de cada imagen
+                const pokemonImage = document.createElement("img");
+                pokemonImage.className = "pokemon_image";
+                imageContainer.appendChild(pokemonImage);
+                pokemonImage.src = pokemon.thumbnail;
+            
+                const pokemonInfo = document.createElement("div");
+                pokemonInfo.className = "card_info";
+                eachCard.appendChild(imageContainer);
+            
+                const pokemonNumber = document.createElement("h3");
+                pokemonNumber.className = "pokemon_number";
+                eachCard.appendChild(pokemonNumber);
+                pokemonNumber.innerHTML = pokemon.id;
+            
+                const pokemonName = document.createElement("h1");
+                pokemonName.className = "pokemon_name";
+                eachCard.appendChild(pokemonName);
+                pokemonName.innerHTML = pokemon.name;
+            
+                const type = pokemon.type
+                
+                for(let typeIndex = 0; typeIndex < type.length; typeIndex++){
+                    const pokemonType = document.createElement("h3");
+                    pokemonType.className = "pokemon_type";
+                    eachCard.appendChild(pokemonType);
+                    pokemonType.innerHTML = type[typeIndex];
+                }    
+    
             }
         }
 
-        if(result.innerHTML === ""){
-            result.innerHTML += `
-            <li>Pokemon not found</li>
-            `
-        }
     }
+        }
+
+    //     if(result.innerHTML === ""){
+    //         result.innerHTML += `
+    //         <li>Pokemon not found</li>
+    //         `
+    //     }
+    // }
 
     buttom.addEventListener("click", search);
     searchBar.addEventListener("keyup", search);
@@ -201,7 +247,7 @@ for(let index = 0; index < pokemons.length; index++){
         
     }
 
-}
+
 
 const pokemonsName = pokemonTypes.filter((name, index, names) => {
     return names.indexOf(name)==index
@@ -331,4 +377,26 @@ for(let index = 0; index < filtered.length; index++){
     }
 })
 
+// construcción de la barra de busqueda
+
+const searchInput = document.getElementById("pokeSearch");
+const containersList = document.getElementsByClassName("container");
+const searchButton = document.querySelector("searchButton");
+
+searchInput.addEventListener("keyup", ()=>{
+    let input = searchInput.value;
+    input = input.toLowerCase();
+    for (let i = 0; i < containersList.length; i++); {
+        if(containersList[i].innerHTML.toLowerCase().includes(input)) {
+            containersList[i].style.display="block";
+        }
+        else {
+            containersList[i].style.display="none";
+        }
+    }
+});
+searchButton.addEventListener("click",(element)=>{
+    searchInput.focus();
+    element.preventDefault()
+});
 
